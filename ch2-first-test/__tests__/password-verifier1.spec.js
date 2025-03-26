@@ -15,42 +15,36 @@ const makeVerifierWithFailedRule = (reason) => {
     return verifier;
 };
 
-describe('v8 PasswordVerifier', () => {
-    describe('with a failing rule', () => {
-        it('has an error message based on the rule.reason', () => {
-            const verifier = makeVerifierWithFailedRule('fake reason');
-            const errors = verifier.verify('any input');
-            expect(errors[0]).toContain('fake reason');
-        });
+test('pass verifier,with failed rule, ' +
+    'has an error message based on the rule.reason', () => {
+        const verifier = makeVerifierWithFailedRule('fake reason');
+        const errors = verifier.verify('any input');
+        expect(errors[0]).toContain('fake reason');
+});
 
-        it('has exactly one error', () => {
-            const verifier = makeVerifierWithFailedRule('fake reason');
-            const errors = verifier.verify('any input');
-            expect(errors.length).toBe(1);
-        });
-    });
+test('pass verifier, with failed rule, has exactly one error', () => {
+    const verifier = makeVerifierWithFailedRule('fake reason');
+    const errors = verifier.verify('any input');
+    expect(errors.length).toBe(1);
+});
 
-    describe('with a passing rule', () => {
-        it('has no errors', () => {
-            const verifier = makeVerifierWithPassingRule();
-            const errors = verifier.verify('any input');
-            expect(errors.length).toBe(0);
-        });
-    });
+test('pass verifier, with a passing rule, has no errors', () => {
+    const verifier = makeVerifierWithPassingRule();
+    const errors = verifier.verify('any input');
+    expect(errors.length).toBe(0);
+});
 
-    describe('with a failing and a passing rule', () => {
-        it('has one error', () => {
-            const verifier = makeVerifierWithFailedRule('fake reason');
-            verifier.addRule(passingRule);
-            const errors = verifier.verify('any input');
-            expect(errors.length).toBe(1);
-        });
+test('pass verifier, with passing and failing rule, ' + 'has one error', () => {
+    const verifier = makeVerifierWithFailedRule('fake reason');
+    verifier.addRule(passingRule);
+    const errors = verifier.verify('any input');
+    expect(errors.length).toBe(1);
+});
 
-        it('error text belongs to failed rule', () => {
-            const verifier = makeVerifierWithFailedRule('fake reason');
-            verifier.addRule(passingRule);
-            const errors = verifier.verify('any input');
-            expect(errors[0]).toContain('fake reason');
-        });
-    });
+test('pass verifier, with passing and failing rule, ' +
+    'error text belongs to failed rule', () => {
+        const verifier = makeVerifierWithFailedRule('fake reason');
+        verifier.addRule(passingRule);
+        const errors = verifier.verify('any input');
+        expect(errors[0]).toContain('fake reason');
 });
