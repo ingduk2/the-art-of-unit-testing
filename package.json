@@ -18,7 +18,9 @@
   },
   "homepage": "https://github.com/ingduk2/the-art-of-unit-testing#readme",
   "devDependencies": {
-    "jest": "^29.7.0"
+    "@types/jest": "^29.5.14",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.3.0"
   },
   "dependencies": {
     "moment": "^2.30.1"
